@@ -16,16 +16,14 @@ pipeline {
         stage('Deploy in Staging Environment'){
             steps{
 	    	echo ".....Starting deployment....."
-		if (build job: 'deploy_application_staging_env2')
-		then
-			echo "...deployment to stage env successful..."
-		else
-			echo "...deployment to stage env failed..."
+		build job: 'deploy_application_staging_env2'
+		echo "...deployment to stage env successful..."
             }
             
         }
         stage('Deploy to Production'){
             steps{
+	    	echo "...Inside prod deployment..."
                 timeout(time:5, unit:'DAYS'){
                     input message:'Approve PRODUCTION Deployment?'
                 }
